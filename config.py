@@ -1,29 +1,32 @@
 import os
-from pathlib import Path
 from dotenv import load_dotenv
 
-# .env faylini yuklash
 load_dotenv()
 
-# Asosiy yo'llar
-BASE_DIR = Path(__file__).resolve().parent
-DOWNLOADS_DIR = BASE_DIR / "downloads"
-DOWNLOADS_DIR.mkdir(exist_ok=True)
+# Telegram Bot Token
+BOT_TOKEN = os.getenv("BOT_TOKEN", "8020362562:AAHRf8gPyDu7U5R1aXl2zDCe0lUxwy3OOao")
 
-# Bot token (@BotFather dan olinadi)
-BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+# Admin IDs (vergul bilan ajratilgan ID lar, masalan: 12345678,87654321)
+ADMINS_RAW = os.getenv("ADMIN_IDS", "")
+ADMIN_IDS = [int(x.strip()) for x in ADMINS_RAW.split(",") if x.strip().isdigit()]
 
-# Bot adminining Telegram ID si (@userinfobot orqali bilish mumkin)
-ADMIN_ID = int(os.getenv("ADMIN_ID", "0"))
+# Standart SMM Provayder API sozlamalari (Standard v2 API)
+PROVIDER_API_URL = os.getenv("PROVIDER_API_URL", "")
+PROVIDER_API_KEY = os.getenv("PROVIDER_API_KEY", "")
 
-# Bepul yuklab olish limiti (Odatiy: 1000 ta qo'shiq)
-FREE_DOWNLOAD_LIMIT = int(os.getenv("FREE_DOWNLOAD_LIMIT", "1000"))
+# To'lov rekvizitlari
+DEFAULT_CARD_NUMBER = os.getenv("DEFAULT_CARD_NUMBER", "8600 0000 0000 0000")
+DEFAULT_CARD_HOLDER = os.getenv("DEFAULT_CARD_HOLDER", "SMM BOT ADMIN")
+SUPPORT_USERNAME = os.getenv("SUPPORT_USERNAME", "admin")
 
-# Telegram Premium foydalanuvchilariga avtomatik cheksiz ruxsat berish
-AUTO_TELEGRAM_PREMIUM_VIP = os.getenv("AUTO_TELEGRAM_PREMIUM_VIP", "True").lower() in ("true", "1", "yes")
+# 1 Telegram Stars ning so'mdagi qiymati (Balans to'ldirish uchun)
+STAR_RATE_UZS = int(os.getenv("STAR_RATE_UZS", "250"))
 
-# Majburiy a'zolik kanali (agar bo'lsa: "@kanal_nomi", bo'lmasa bo'sh qoldiring)
-REQUIRED_CHANNEL = os.getenv("REQUIRED_CHANNEL", "")
+# Referal foizi (Taklif qilingan do'st hisobini to'ldirganda beriladigan bonus %)
+REFERRAL_PERCENT = int(os.getenv("REFERRAL_PERCENT", "5"))
 
-# Ma'lumotlar bazasi fayli
-DATABASE_PATH = BASE_DIR / "bot_database.sqlite3"
+# Port (Render.com web service uchun)
+PORT = int(os.getenv("PORT", "8080"))
+
+# Database fayl yo'li
+DB_PATH = os.getenv("DB_PATH", "smm_bot.db")
